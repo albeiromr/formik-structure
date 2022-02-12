@@ -1,12 +1,10 @@
 import counterReducer, {
-  CounterState,
-  increment,
-  decrement,
-  incrementByAmount,
-} from './counterSlice';
+  setForm,
+  resetForm
+} from './basic-form.reducer';
 
 describe('counter reducer', () => {
-  const initialState: CounterState = {
+  /* const initialState: CounterState = {
     value: 3,
     status: 'idle',
   };
@@ -30,5 +28,5 @@ describe('counter reducer', () => {
   it('should handle incrementByAmount', () => {
     const actual = counterReducer(initialState, incrementByAmount(2));
     expect(actual.value).toEqual(5);
-  });
+  }); */
 });
