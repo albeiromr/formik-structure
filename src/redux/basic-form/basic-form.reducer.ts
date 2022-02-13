@@ -1,12 +1,12 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { BasicFormEnum } from '../../../enums/basic-form-status.enum';
-import { BasicFormInterface } from '../../../interfaces/basic-form.interface';
-import { RootState, AppThunk } from '../../store';
+import { BasicFormEnum } from '../../enums/basic-form-status.enum';
+import { BasicFormInterface } from '../../interfaces/basic-form.interface';
+import { RootState, AppThunk } from '../store';
 import { BasicFormReducerInterface } from './basic-form-reducer.interface';
 
 const initialState: BasicFormReducerInterface = {
   value: {} as BasicFormInterface,
-  status: BasicFormEnum.unset,
+  status: BasicFormEnum.idle
 };
 
 export const basicForm = createSlice({
