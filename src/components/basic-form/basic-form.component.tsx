@@ -1,43 +1,31 @@
-import React from "react";
 import "./basic-form.component.scss";
-import { Formik, Field, Form } from "formik";
-import { BasicFormInterface } from "../../interfaces/basic-form.interface";
-import * as yup from 'yup';
-
-const initialValues: BasicFormInterface = {
-    name: "",
-    email: "",
-    age: 0,
-    phone: ""
-}
-
-const validationSchema  = yup.object({
-    name: yup.string()
-    .max(20, "el nombre debe ser maximo de 20 caracteres")
-    .min(2, "el nombre debe ser mínimo de 2 caracteres")
-    .required("el nombre es requerido")
-})
+import { Formik } from "formik";
+import { FormValidationService } from "../../services/forms/form-validation.service";
+import { basicFormInitialValues } from "../../services/forms/initial-values.service";
+import { setForm } from "../../redux/basic-form/basic-form.reducer";
+import { useAppDispatch } from "../../redux/hooks";
 
 const BasicFormComponent = () => {
+
+    const dispatch = useAppDispatch();
 
     return (
         <div className="basic-form">
             <Formik
-                initialValues={initialValues}
-                onSubmit={ async (values, actions) => {
-                    await new Promise(resolve => console.log(values, actions))
-                }} 
-                validationSchema={validationSchema}
+                initialValues={basicFormInitialValues}
+                onSubmit={ (values) => { dispatch(setForm(values)) }} 
+                validationSchema={FormValidationService.basicForm}
             >
                 {({handleBlur, handleChange, handleSubmit,errors, touched}) => (
+
                     <form onSubmit={handleSubmit}>
 
                         <div className="basic-form__input-container">
-                            <input 
+                            <input
                                 type="text"
-                                className="basic-form__input" 
-                                id="name" 
-                                name="name" 
+                                className="basic-form__input"
+                                id="name"
+                                name="name"
                                 placeholder="Name"
                                 onChange={handleChange}
                                 onBlur={handleBlur}
@@ -55,7 +43,7 @@ const BasicFormComponent = () => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
-                            <p className="basic-form__error-message">Lorem ipsum dolor, sit amet consectetur.</p>
+                            {errors.email && touched.email && <p className="basic-form__error-message">{errors.email}</p>}
                         </div>
 
                         <div className="basic-form__input-container">
@@ -68,7 +56,7 @@ const BasicFormComponent = () => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
-                            <p className="basic-form__error-message">Lorem ipsum dolor, sit amet consectetur.</p>
+                            {errors.age && touched.age && <p className="basic-form__error-message">{errors.age}</p>}
                         </div>
 
                         <div className="basic-form__input-container">
@@ -81,7 +69,7 @@ const BasicFormComponent = () => {
                                 onChange={handleChange}
                                 onBlur={handleBlur}
                             />
-                            <p className="basic-form__error-message">Lorem ipsum dolor, sit amet consectetur.</p>
+                            {errors.phone && touched.phone && <p className="basic-form__error-message">{errors.phone}</p>}
                         </div>
 
                         <button type="submit" className="basic-form__button">Enviar</button>
