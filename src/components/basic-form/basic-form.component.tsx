@@ -1,18 +1,24 @@
 import "./basic-form.component.scss";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 import { FormValidationService } from "../../services/forms/form-validation.service";
 import { basicFormInitialValues } from "../../services/forms/initial-values.service";
 import { setForm } from "../../redux/basic-form/basic-form.reducer";
 import { useAppDispatch } from "../../redux/hooks";
+import { useRef } from "react";
 
 const BasicFormComponent = () => {
 
     const dispatch = useAppDispatch();
 
+    const formRef = useRef<HTMLFormElement>(null);
+
     const form = useFormik({
         initialValues: basicFormInitialValues,
-        onSubmit: (values) => {  
+        onSubmit: (values, {setSubmitting, resetForm}) => {  
             dispatch(setForm(values));
+            resetForm();
+            setSubmitting(false);
+            formRef.current?.reset();
         },
         validationSchema: FormValidationService.basicForm
     })
@@ -24,7 +30,7 @@ const BasicFormComponent = () => {
     return (
         <div className="basic-form">
 
-            <form onSubmit={form.handleSubmit}>
+            <form onSubmit={form.handleSubmit} ref={formRef}>
 
                 <div className="basic-form__input-container">
                     <input
