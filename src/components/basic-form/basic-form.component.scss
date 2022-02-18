@@ -19,7 +19,7 @@
 
   &__form {
     width: auto;
-    height: auto;
+    height: 600px;
   }
 
   &__input-container {
@@ -56,6 +56,19 @@
     font-weight: 600;
     font-size: 18px;
     background: darkcyan;
+    cursor: pointer;
+  }
+
+  &__button--reset {
+    width: 100px;
+    height: 45px;
+    border: 2px #565656 solid;
+    border-radius: 10px;
+    padding: 0 15px;
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 18px;
+    background: rgb(161, 161, 161);
     cursor: pointer;
   }
 }
